@@ -1,4 +1,6 @@
+
 import 'package:flutter/material.dart';
+import 'package:login_signup_firebase/services/auth.dart';
 
 import 'home_page.dart';
 
@@ -10,6 +12,7 @@ class SignupPage extends StatefulWidget{
 class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
+    final AuthService _auth =AuthService();
     final emailController=TextEditingController();
     final passwrodController=TextEditingController();
     final phoneController=TextEditingController();
@@ -66,8 +69,6 @@ class _SignupPageState extends State<SignupPage> {
 
                              TextFormField(
                                keyboardType: TextInputType.emailAddress,
-                               obscureText: true,
-
                                controller: emailController,
                                decoration: InputDecoration(
                                    border: OutlineInputBorder(),
@@ -95,11 +96,20 @@ class _SignupPageState extends State<SignupPage> {
                        ),
                      ),
                      RaisedButton(
-                       onPressed: (){
-                         Navigator.push(context, MaterialPageRoute(
-                             builder: (context)=>HomePage()
-                         )
-                         );
+                       onPressed: () async{
+                         print('EMAIL : ${emailController.text}');
+                            dynamic result= await _auth.signUpWithEmail(emailController.text, passwrodController.text);
+                         if(result == null){
+                           print("TRY AGAIN");
+                         }else{
+                           print("Success");
+                           print(result);
+                           Navigator.push(context, MaterialPageRoute(
+                               builder: (context)=>HomePage()
+                           ));
+
+                         }
+
 
                        },
                        focusElevation: 10,

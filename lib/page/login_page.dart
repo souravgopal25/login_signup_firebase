@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:login_signup_firebase/page/home_page.dart';
 import 'package:login_signup_firebase/page/signup_page.dart';
+import 'package:login_signup_firebase/services/auth.dart';
 
 class LoginPage extends StatefulWidget{
   @override
@@ -10,6 +11,7 @@ class LoginPage extends StatefulWidget{
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
+    final AuthService _auth =AuthService();
     final emailController=TextEditingController();
     final passwrodController=TextEditingController();
     return Scaffold(
@@ -67,11 +69,19 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       RaisedButton(
-                        onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(
-                            builder: (context)=>HomePage()
-                          )
-                          );
+                        onPressed: () async{
+                          print('EMAIL id :${emailController.toString().trim()}');
+                          dynamic result= await _auth.signInWithEmail(emailController.text, passwrodController.text);
+                        if(result == null){
+                          print("TRY AGAIN");
+                          }else{
+                          print("Success");
+                          print(result);
+                            Navigator.push(context, MaterialPageRoute(
+                              builder: (context)=>HomePage()
+                          ));
+
+                          }
 
                         },
                         focusElevation: 10,
