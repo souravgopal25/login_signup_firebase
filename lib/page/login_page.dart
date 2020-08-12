@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:login_signup_firebase/page/home_page.dart';
+import 'package:login_signup_firebase/page/signup_page.dart';
 
 class LoginPage extends StatefulWidget{
   @override
@@ -65,13 +67,33 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       RaisedButton(
-                        onPressed: (){},
+                        onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context)=>HomePage()
+                          )
+                          );
+
+                        },
                         focusElevation: 10,
                         textColor: Colors.white,
                         child: Text(
                           "Sign-In",
                         ),
                         color: Colors.green,
+                      ),
+                      RaisedButton(
+                        onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context)=>SignupPage()
+                          ));
+                        },
+                        focusElevation: 10,
+                        textColor: Colors.white,
+                        child: Text(
+                          "Not yet a Member Signup",
+                        ),
+                        color: Colors.lightBlueAccent,
+
                       )
                     ],
                   ),
