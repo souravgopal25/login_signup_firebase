@@ -32,6 +32,12 @@ class AuthService{
       return null;
     }
   }
+  Future getCurrentUser()async{
+    FirebaseUser user=await _auth.currentUser();
+    String uid=user.uid;
+    return uid;
+
+  }
 
 
 }
